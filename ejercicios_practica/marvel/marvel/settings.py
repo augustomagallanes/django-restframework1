@@ -27,7 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
 
+),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated',
+            # NOTE: Este es para que se pueda crear un usuario sin estar autenticado, sino usar el
+#IsAuthenticated:
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 # Application definition
 
 # Apps que se agregan automáticamente al crear un proyecto en Django.
@@ -42,26 +55,31 @@ BASE_APPS = [
 
 # Acá van las apps de 3ros que necesitamos agregar
 # para que Django las encuentre.
-THIRD_APPS = []
+THIRD_APPS = [
+        'rest_framework',
+        'rest_framework.authtoken',
+]
 
 # Acá van las apps que creamos nosotros.
 LOCAL_APPS = ['e_commerce']
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 
-# INSTALLED_APPS = [
-#     'django.contrib.admin',
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
-#     # Local apps: Acá ponemos el nombre de las carpetas
-#     # de nuestras aplicaciones.
-#     'e_commerce',
-#     # Third party apps: acá vamos agregando las aplicaciones de terceros,
-#     # extensiones de Django.
-# ]
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Local apps: Acá ponemos el nombre de las carpetas
+    # de nuestras aplicaciones.
+    'e_commerce',
+    # Third party apps: acá vamos agregando las aplicaciones de terceros,
+    # extensiones de Django.
+    'rest_framework',
+    'rest_framework.authtoken',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
